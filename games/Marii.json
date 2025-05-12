@@ -1,0 +1,126 @@
+{
+  "title": "Опитування про Марію з Біблії",
+  "description": "Це опитування перевіряє ваші знання про Марію, матір Ісуса, згідно з Біблією.",
+  "quizes": [
+    {
+      "title": "Хто був матір'ю Ісуса?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Марія", "is_true": true},
+        {"label": "Єлизавета", "is_true": false},
+        {"label": "Анна", "is_true": false},
+        {"label": "Сара", "is_true": false}
+      ]
+    },
+    {
+      "title": "Хто був чоловіком Марії?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Йосип", "is_true": true},
+        {"label": "Петро", "is_true": false},
+        {"label": "Іван", "is_true": false},
+        {"label": "Яків", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке місто було місцем народження Ісуса?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Вифлеєм", "is_true": true},
+        {"label": "Єрусалим", "is_true": false},
+        {"label": "Назарет", "is_true": false},
+        {"label": "Галілея", "is_true": false}
+      ]
+    },
+    {
+      "title": "Який ангел сповістив Марії про народження Ісуса?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Гавриїл", "is_true": true},
+        {"label": "Михаїл", "is_true": false},
+        {"label": "Рафаїл", "is_true": false},
+        {"label": "Уриїл", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке чудо сталося на весіллі в Кані Галілейській?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Перетворення води на вино", "is_true": true},
+        {"label": "Ходіння по воді", "is_true": false},
+        {"label": "Нагодування 5000 людей", "is_true": false},
+        {"label": "Воскресіння Лазаря", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке свято відзначає Благовіщення?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Сповіщення Марії про народження Ісуса", "is_true": true},
+        {"label": "Народження Ісуса", "is_true": false},
+        {"label": "Воскресіння Ісуса", "is_true": false},
+        {"label": "Вознесіння Ісуса", "is_true": false}
+      ]
+    },
+    {
+      "title": "Де Марія та Йосип знайшли Ісуса після трьох днів пошуків?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "У храмі", "is_true": true},
+        {"label": "У Вифлеємі", "is_true": false},
+        {"label": "У Назареті", "is_true": false},
+        {"label": "У Галілеї", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке ім'я було дано Ісусу при обрізанні?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Ісус", "is_true": true},
+        {"label": "Еммануїл", "is_true": false},
+        {"label": "Йосип", "is_true": false},
+        {"label": "Мойсей", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке дерево згадується в історії про втечу Марії та Йосипа до Єгипту?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Пальма", "is_true": true},
+        {"label": "Олива", "is_true": false},
+        {"label": "Смоківниця", "is_true": false},
+        {"label": "Кедр", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке місто було домом Марії та Йосипа?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Назарет", "is_true": true},
+        {"label": "Вифлеєм", "is_true": false},
+        {"label": "Єрусалим", "is_true": false},
+        {"label": "Галілея", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке свято відзначає народження Ісуса?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Різдво", "is_true": true},
+        {"label": "Великдень", "is_true": false},
+        {"label": "Благовіщення", "is_true": false},
+        {"label": "Вознесіння", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке ім'я було дано Марії при народженні?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Марія", "is_true": true},
+        {"label": "Міріам", "is_true": false},
+        {"label": "Анна", "is_true": false},
+        {"label": "Сара", "is_true": false}
+      ]
+    }
+  ]
+}

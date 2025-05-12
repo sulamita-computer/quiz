@@ -1,0 +1,126 @@
+{
+  "title": "Опитування про Вавилон з Біблії",
+  "description": "Це опитування перевіряє ваші знання про Вавилон, як він описаний у Біблії.",
+  "quizes": [
+    {
+      "title": "Яке місто було столицею Вавилонської імперії?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Вавилон", "is_true": true},
+        {"label": "Ніневія", "is_true": false},
+        {"label": "Єрусалим", "is_true": false},
+        {"label": "Мемфіс", "is_true": false}
+      ]
+    },
+    {
+      "title": "Хто був відомим царем Вавилону, згаданим у Біблії?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Навуходоносор", "is_true": true},
+        {"label": "Соломон", "is_true": false},
+        {"label": "Давид", "is_true": false},
+        {"label": "Ахав", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яка знаменита споруда була побудована у Вавилоні?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Вавилонська вежа", "is_true": true},
+        {"label": "Єрихонська стіна", "is_true": false},
+        {"label": "Соломонів храм", "is_true": false},
+        {"label": "Піраміди Гізи", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке пророцтво було пов'язане з падінням Вавилону?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Пророцтво Ісаї", "is_true": true},
+        {"label": "Пророцтво Єремії", "is_true": false},
+        {"label": "Пророцтво Єзекіїля", "is_true": false},
+        {"label": "Пророцтво Даниїла", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яка річка протікала через Вавилон?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Євфрат", "is_true": true},
+        {"label": "Тигр", "is_true": false},
+        {"label": "Йордан", "is_true": false},
+        {"label": "Ніл", "is_true": false}
+      ]
+    },
+    {
+      "title": "Який пророк був кинутий у вогненну піч у Вавилоні?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Даниїл", "is_true": false},
+        {"label": "Шадрах", "is_true": true},
+        {"label": "Мешах", "is_true": false},
+        {"label": "Авденаго", "is_true": false}
+      ]
+    },
+    {
+      "title": "Який цар Вавилону бачив сон про велетенську статую?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Навуходоносор", "is_true": true},
+        {"label": "Валтасар", "is_true": false},
+        {"label": "Дарій", "is_true": false},
+        {"label": "Кір", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яке місто було зруйноване Вавилоном у 586 році до н.е.?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Єрусалим", "is_true": true},
+        {"label": "Самарія", "is_true": false},
+        {"label": "Тір", "is_true": false},
+        {"label": "Содом", "is_true": false}
+      ]
+    },
+    {
+      "title": "Який пророк тлумачив сни царя Навуходоносора?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Даниїл", "is_true": true},
+        {"label": "Єремія", "is_true": false},
+        {"label": "Ісая", "is_true": false},
+        {"label": "Єзекіїль", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яка книга Біблії описує падіння Вавилону?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Книга Даниїла", "is_true": false},
+        {"label": "Книга Ісаї", "is_true": true},
+        {"label": "Книга Єремії", "is_true": false},
+        {"label": "Книга Об'явлення", "is_true": false}
+      ]
+    },
+    {
+      "title": "Який цар Вавилону бачив напис на стіні?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Валтасар", "is_true": true},
+        {"label": "Навуходоносор", "is_true": false},
+        {"label": "Дарій", "is_true": false},
+        {"label": "Кір", "is_true": false}
+      ]
+    },
+    {
+      "title": "Яка імперія завоювала Вавилон?",
+      "description": "Виберіть правильну відповідь.",
+      "options": [
+        {"label": "Перська імперія", "is_true": true},
+        {"label": "Грецька імперія", "is_true": false},
+        {"label": "Римська імперія", "is_true": false},
+        {"label": "Ассирійська імперія", "is_true": false}
+      ]
+    }
+  ]
+}
