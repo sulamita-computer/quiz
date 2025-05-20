@@ -1,5 +1,12 @@
 const std = @import("std");
 const zap = @import("zap");
+const json = @import("json");
+
+const eql = std.mem.eql;
+const expect = std.testing.expect;
+
+const ALC = std.heap.c_allocator;
+// const TALC = std.testing.allocator;
 
 fn on_request(r: zap.Request) void {
     if (r.path) |the_path| {
@@ -26,8 +33,17 @@ fn on_request(r: zap.Request) void {
     r.sendBody(html_data) catch return;
 }
 
+const GameInfo = struct {
+    title: []const u8,
+    description: []const u8,
+    quizes: []const struct {
+        title: []const u8,
+        description: []const u8,
+    },
+};
+
 var file_name_list: std.ArrayList([]const u8) = undefined;
-const ALC = std.heap.c_allocator;
+var game_data: std.ArrayList(GameInfo) = undefined;
 
 pub fn main() !void {
 
@@ -43,6 +59,7 @@ pub fn main() !void {
 
     ///////// Load games data
     file_name_list = std.ArrayList([]const u8).init(ALC);
+    game_data = std.ArrayList(GameInfo).init(ALC);
     defer file_name_list.deinit();
 
     {
@@ -69,4 +86,22 @@ pub fn main() !void {
         .threads = 2,
         .workers = 1, // 1 worker enables sharing state between threads
     });
+}
+
+test "json parse" {
+    const value = try json.parse(
+        \\{
+        \\  "title": "Опитування про Авраама з Біблії",
+        \\  "description": "Це опитування перевіряє ваші знання про життя та події, пов'язані з Авраамом у Біблії.",
+        \\  "quizes": [
+        \\    {
+        \\      "title": "Хто був батьком Авраама?",
+        \\      "description": "Виберіть правильну відповідь про батька Авраама.",
+        \\    }]}
+    , ALC);
+    defer value.deinit(ALC);
+    const bazObj = value.get("quizes").get(0);
+
+    // bazObj.print(null);
+    try expect(eql(u8, bazObj.get("title").string(), "Хто був батьком Авраама?"));
 }

@@ -27,7 +27,9 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .openssl = false, // set to true to enable TLS support
     });
+    const zigJsonDependency = b.dependency("zig-json", .{ .target = target, .optimize = optimize });
     exe.root_module.addImport("zap", zap.module("zap"));
+    exe.root_module.addImport("json", zigJsonDependency.module("zig-json"));
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
@@ -62,6 +64,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe_unit_tests.root_module.addImport("zap", zap.module("zap"));
+    exe_unit_tests.root_module.addImport("json", zigJsonDependency.module("zig-json"));
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
 
