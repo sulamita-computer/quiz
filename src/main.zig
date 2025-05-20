@@ -3,6 +3,8 @@ const zap = @import("zap");
 const json = @import("json");
 
 const eql = std.mem.eql;
+const join = std.mem.join;
+const copy = std.mem.copyForwards;
 const expect = std.testing.expect;
 
 const ALC = std.heap.c_allocator;
@@ -19,12 +21,20 @@ fn on_request(r: zap.Request) void {
 
     // TODO: Should be normal error
     ////////// Formating data for HTML
-    const file_name_list_html = std.mem.join(ALC, "<br />", file_name_list.items) catch unreachable;
-    defer ALC.free(file_name_list_html);
 
-    const html_data = std.mem.join(ALC, "", &[_][]const u8{
-        "<html><body><h1>",
-        file_name_list_html,
+    const game_titles = ALC.alloc([]const u8, game_data.items.len) catch unreachable;
+    defer ALC.free(game_titles);
+
+    for (game_titles, 0..) |*title, index| {
+        title.* = game_data.items[index].title;
+    }
+
+    const game_titles_html = join(ALC, "<br />", game_titles) catch unreachable;
+    defer ALC.free(game_titles_html);
+
+    const html_data = join(ALC, "", &[_][]const u8{
+        "<html><head><meta charset=\"UTF-8\"></head><body><h1>",
+        game_titles_html,
         "</h1></body></html>",
     }) catch unreachable;
     defer ALC.free(html_data);
@@ -36,10 +46,35 @@ fn on_request(r: zap.Request) void {
 const GameInfo = struct {
     title: []const u8,
     description: []const u8,
-    quizes: []const struct {
+    quizes: []const Question,
+    allocator: std.mem.Allocator,
+
+    const Question = struct {
         title: []const u8,
         description: []const u8,
-    },
+        options: []const struct {
+            label: []const u8,
+            is_true: bool,
+        },
+    };
+
+    // TODO: Need method deinit
+
+    // TODO: Need error handlers
+    pub fn initFromJSON(input: *json.JsonValue, allocator: std.mem.Allocator) !GameInfo {
+        var res: GameInfo = undefined;
+        res.allocator = allocator;
+
+        const title_json = input.get("title").string();
+        var title = try allocator.alloc(u8, title_json.len);
+        copy(u8, title, title_json);
+        res.title = title[0..];
+
+        // res.description = input.get("description").string();
+        // const quizes_number = input.get("quizes").array().len();
+        // res.quizes = &(try allocator.alloc(Question, quizes_number));
+        return res;
+    }
 };
 
 var file_name_list: std.ArrayList([]const u8) = undefined;
@@ -51,7 +86,7 @@ pub fn main() !void {
     var listener = zap.HttpListener.init(.{
         .port = 3000,
         .on_request = on_request,
-        .log = true,
+        // .log = true,
         .max_clients = 100000,
     });
     try listener.listen();
@@ -61,6 +96,7 @@ pub fn main() !void {
     file_name_list = std.ArrayList([]const u8).init(ALC);
     game_data = std.ArrayList(GameInfo).init(ALC);
     defer file_name_list.deinit();
+    defer game_data.deinit();
 
     {
         var iter_dir = try std.fs.cwd().openDir(
@@ -73,6 +109,14 @@ pub fn main() !void {
         while (try iter.next()) |entry| {
             // TODO: Should be normal error
             if (entry.kind != .file) unreachable;
+
+            const game_file = try iter_dir.openFile(entry.name, .{});
+            defer game_file.close();
+
+            const json_object = try json.parseFile(game_file, ALC);
+            defer json_object.deinit(ALC);
+
+            try game_data.append(try GameInfo.initFromJSON(json_object, ALC));
 
             // Get only name of file without extname ".json"
             try file_name_list.append(std.mem.trimRight(u8, entry.name, ".json"));
