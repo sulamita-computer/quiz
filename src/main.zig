@@ -2,6 +2,9 @@ const std = @import("std");
 const zap = @import("zap");
 const json = @import("json");
 
+const Games = @import("./game_data.zig");
+const GameInfo = Games.GameInfo;
+
 const eql = std.mem.eql;
 const join = std.mem.join;
 const copy = std.mem.copyForwards;
@@ -21,7 +24,6 @@ fn on_request(r: zap.Request) void {
 
     // TODO: Should be normal error
     ////////// Formating data for HTML
-
     const game_titles = ALC.alloc([]const u8, game_data.items.len) catch unreachable;
     defer ALC.free(game_titles);
 
@@ -43,41 +45,6 @@ fn on_request(r: zap.Request) void {
     r.sendBody(html_data) catch return;
 }
 
-const GameInfo = struct {
-    title: []const u8,
-    description: []const u8,
-    quizes: []const Question,
-    allocator: std.mem.Allocator,
-
-    const Question = struct {
-        title: []const u8,
-        description: []const u8,
-        options: []const struct {
-            label: []const u8,
-            is_true: bool,
-        },
-    };
-
-    // TODO: Need method deinit
-
-    // TODO: Need error handlers
-    pub fn initFromJSON(input: *json.JsonValue, allocator: std.mem.Allocator) !GameInfo {
-        var res: GameInfo = undefined;
-        res.allocator = allocator;
-
-        const title_json = input.get("title").string();
-        var title = try allocator.alloc(u8, title_json.len);
-        copy(u8, title, title_json);
-        res.title = title[0..];
-
-        // res.description = input.get("description").string();
-        // const quizes_number = input.get("quizes").array().len();
-        // res.quizes = &(try allocator.alloc(Question, quizes_number));
-        return res;
-    }
-};
-
-var file_name_list: std.ArrayList([]const u8) = undefined;
 var game_data: std.ArrayList(GameInfo) = undefined;
 
 pub fn main() !void {
@@ -93,10 +60,13 @@ pub fn main() !void {
     /////////
 
     ///////// Load games data
-    file_name_list = std.ArrayList([]const u8).init(ALC);
     game_data = std.ArrayList(GameInfo).init(ALC);
-    defer file_name_list.deinit();
-    defer game_data.deinit();
+    defer {
+        for (game_data.items) |*game_info| {
+            game_info.deinit();
+        }
+        game_data.deinit();
+    }
 
     {
         var iter_dir = try std.fs.cwd().openDir(
@@ -116,13 +86,15 @@ pub fn main() !void {
             const json_object = try json.parseFile(game_file, ALC);
             defer json_object.deinit(ALC);
 
-            try game_data.append(try GameInfo.initFromJSON(json_object, ALC));
+            const game_info = try GameInfo.initFromJSON(json_object, ALC);
 
-            // Get only name of file without extname ".json"
-            try file_name_list.append(std.mem.trimRight(u8, entry.name, ".json"));
+            try game_data.append(game_info);
         }
     }
     //////////
+
+    // uncomment for testing deinit of GameInfo structures
+    // return;
 
     std.debug.print("Listening on 0.0.0.0:3000\n", .{});
 
