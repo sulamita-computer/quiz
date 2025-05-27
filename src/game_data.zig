@@ -20,6 +20,7 @@ pub const GameInfo = struct {
 
     pub fn deinit(self: *GameInfo) void {
         self.allocator.free(self.title);
+        self.allocator.free(self.description);
     }
 
     // TODO: Need error handlers
@@ -32,9 +33,11 @@ pub const GameInfo = struct {
         copy(u8, title, title_json);
         res.title = title[0..];
 
-        // res.description = input.get("description").string();
-        // const quizes_number = input.get("quizes").array().len();
-        // res.quizes = &(try allocator.alloc(Question, quizes_number));
+        const description_json = input.get("title").string();
+        var description = try allocator.alloc(u8, title_json.len);
+        copy(u8, description, description_json);
+        res.description = description[0..];
+
         return res;
     }
 };

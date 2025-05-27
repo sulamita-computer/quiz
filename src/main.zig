@@ -24,20 +24,35 @@ fn on_request(r: zap.Request) void {
 
     // TODO: Should be normal error
     ////////// Formating data for HTML
-    const game_titles = ALC.alloc([]const u8, game_data.items.len) catch unreachable;
-    defer ALC.free(game_titles);
-
-    for (game_titles, 0..) |*title, index| {
-        title.* = game_data.items[index].title;
+    const game_labels = ALC.alloc([]const u8, game_data.items.len) catch unreachable;
+    defer {
+        for (game_labels) |label| {
+            ALC.free(label); // defer afer join #1
+        }
+        ALC.free(game_labels);
     }
 
-    const game_titles_html = join(ALC, "<br />", game_titles) catch unreachable;
-    defer ALC.free(game_titles_html);
+    for (game_labels, 0..) |*label, index| {
+        const title = game_data.items[index].title;
+        const description = game_data.items[index].description;
+        label.* = join(ALC, "", &[_][]const u8{
+            "<h1>",
+            title,
+            "</h1>",
+            "<p>",
+            description,
+            "</p>",
+        }) catch unreachable;
+        // defer near game_labels #1
+    }
+
+    const game_labels_html = join(ALC, "<br />", game_labels) catch unreachable;
+    defer ALC.free(game_labels_html);
 
     const html_data = join(ALC, "", &[_][]const u8{
-        "<html><head><meta charset=\"UTF-8\"></head><body><h1>",
-        game_titles_html,
-        "</h1></body></html>",
+        "<html><head><meta charset=\"UTF-8\"></head><body>",
+        game_labels_html,
+        "</body></html>",
     }) catch unreachable;
     defer ALC.free(html_data);
     //////////
